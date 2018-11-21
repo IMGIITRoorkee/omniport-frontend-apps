@@ -1,0 +1,8 @@
+{
+  "nomenclature": {
+    "name": "apps",
+    "verboseName": "Apps"
+  },
+  "baseUrl": "/apps",
+  "source": "apps/src/index"
+}
