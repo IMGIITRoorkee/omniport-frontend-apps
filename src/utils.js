@@ -1,4 +1,4 @@
-import { groupBy, spread, merge, reject } from 'lodash'
+import { groupBy, spread, merge, reject, orderBy } from 'lodash'
 
 import config from 'core/configs.json'
 /**
@@ -13,7 +13,9 @@ export function commonApps (apiList) {
   commonList = groupBy(commonList, obj => obj.nomenclature.name)
   // Remove the objects which were not matched.
   commonList = reject(commonList, { length: 1 })
-  // Spread the array
+  // Spread the arrays in array.
   commonList = commonList.map(spread(merge))
+  // Sort the list according to verbose name.
+  commonList = orderBy(commonList, obj => obj.nomenclature.verboseName, ['asc'])
   return commonList
 }
