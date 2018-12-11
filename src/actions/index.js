@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { commonApps } from '../utils'
-import { urlAppList } from '../urls'
+import { commonApps } from 'formula_one'
+import { urlAppList } from 'formula_one'
 
 export const setAppList = () => {
   return dispatch => {

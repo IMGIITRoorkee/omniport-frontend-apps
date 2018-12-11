@@ -5,7 +5,7 @@ import { Scrollbars } from 'react-custom-scrollbars'
 
 import Sidebar from 'core/common/src/components/primary-sidebar'
 import { AppHeader, AppFooter, AppMain, Tiles } from 'formula_one'
-import { setAppList } from '../actions/'
+import { setAppList } from '../actions'
 
 import main from 'formula_one/src/css/app.css'
 
@@ -29,7 +29,8 @@ class App extends React.PureComponent {
       <React.Fragment>
         <div styleName='app'>
           <AppHeader
-            appName='Apps'
+            mode='site'
+            appName='apps'
             appLink={`http://${window.location.host}${match.path}`}
             userDropdown
           />
@@ -47,7 +48,7 @@ class App extends React.PureComponent {
                           desc: app.description,
                           link: app.baseUrl,
                           iconName: 'cube',
-                          imageUrl: app.logo
+                          imageUrl: app.assets && app.assets.icon
                         }
                       })
                       : []
@@ -76,4 +77,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
