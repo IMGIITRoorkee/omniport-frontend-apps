@@ -45,7 +45,7 @@ class App extends React.PureComponent {
                       ? appList.data.map(app => {
                         return {
                           name: app.nomenclature.verboseName,
-                          desc: app.description,
+                          desc: <span>{app.description}</span>,
                           link: app.baseUrl,
                           iconName: 'cube',
                           imageUrl: app.assets && app.assets.icon
