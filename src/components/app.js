@@ -28,12 +28,7 @@ class App extends React.PureComponent {
     return (
       <React.Fragment>
         <div styleName='app'>
-          <AppHeader
-            mode='site'
-            appName='apps'
-            appLink={`http://${window.location.host}${match.path}`}
-            userDropdown
-          />
+          <AppHeader mode='site' appName='apps' userDropdown />
           {isMobile && <Sidebar />}
           <AppMain>
             <div styleName='main.app-main'>
@@ -48,7 +43,10 @@ class App extends React.PureComponent {
                           desc: <span>{app.description}</span>,
                           link: app.baseUrl,
                           iconName: 'cube',
-                          imageUrl: app.assets && app.assets.icon
+                          imageUrl:
+                              app.assets &&
+                              `/static/${app.baseUrls.static}${app.assets &&
+                                app.assets.logo}`
                         }
                       })
                       : []
