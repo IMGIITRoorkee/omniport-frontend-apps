@@ -4,5 +4,9 @@
     "verboseName": "Apps"
   },
   "baseUrl": "/apps",
-  "source": "apps/src/index"
+  "source": "apps/src/index",
+  "primarySidebar": {
+    "icon": "cubes",
+    "priority": 3
+  }
 }
