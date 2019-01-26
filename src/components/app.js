@@ -30,14 +30,14 @@ class App extends React.PureComponent {
     return (
       <React.Fragment>
         <div styleName='app'>
-          <AppHeader mode='site' appName='apps' userDropdown />
+          <AppHeader userDropdown />
           {isMobile && <Sidebar />}
           <AppMain>
             <div styleName='main.app-main'>
               {isBrowser && <Sidebar />}
               <Scrollbars autoHide>
                 <Tiles
-                  tile={
+                  tiles={
                     appList.isLoaded
                       ? appList.data.map(app => {
                         return {
