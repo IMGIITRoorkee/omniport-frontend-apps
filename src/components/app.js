@@ -2,8 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { isMobile, isBrowser } from 'react-device-detect'
 import { Scrollbars } from 'react-custom-scrollbars'
+import { Container } from 'semantic-ui-react'
 
 import Sidebar from 'core/common/src/components/primary-sidebar'
+import CustomBreadcrumb from 'core/common/src/components/custom-breadcrumb'
 import { AppHeader, AppFooter, AppMain, Tiles } from 'formula_one'
 import { setAppList } from '../actions'
 
@@ -36,24 +38,27 @@ class App extends React.PureComponent {
             <div styleName='main.app-main'>
               {isBrowser && <Sidebar />}
               <Scrollbars autoHide>
-                <Tiles
-                  tiles={
-                    appList.isLoaded
-                      ? appList.data.map(app => {
-                        return {
-                          name: app.nomenclature.verboseName,
-                          desc: <span>{app.description}</span>,
-                          link: app.baseUrl,
-                          iconName: 'cube',
-                          imageUrl:
-                              app.assets &&
-                              `/static/${app.baseUrls.static}${app.assets &&
-                                app.assets.logo}`
-                        }
-                      })
-                      : []
-                  }
-                />
+                <Container>
+                  <CustomBreadcrumb list={[{ name: 'Apps' }]} />
+                  <Tiles
+                    tiles={
+                      appList.isLoaded
+                        ? appList.data.map(app => {
+                          return {
+                            name: app.nomenclature.verboseName,
+                            desc: <span>{app.description}</span>,
+                            link: app.baseUrl,
+                            iconName: 'cube',
+                            imageUrl:
+                                app.assets &&
+                                `/static/${app.baseUrls.static}${app.assets &&
+                                  app.assets.logo}`
+                          }
+                        })
+                        : []
+                    }
+                  />
+                </Container>
               </Scrollbars>
             </div>
           </AppMain>
