@@ -1,12 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { isMobile, isBrowser } from 'react-device-detect'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { Container } from 'semantic-ui-react'
+import { Grid, Container, Placeholder, Segment } from 'semantic-ui-react'
 
-import Sidebar from 'core/common/src/components/primary-sidebar'
 import CustomBreadcrumb from 'core/common/src/components/custom-breadcrumb'
-import { AppHeader, AppFooter, AppMain, Tiles } from 'formula_one'
+import { Tiles } from 'formula_one'
 import { setAppList } from '../actions'
 
 import main from 'formula_one/src/css/app.css'
@@ -16,55 +14,47 @@ class App extends React.PureComponent {
     this.props.SetAppList()
   }
   render () {
-    const { match, appList } = this.props
-    const creators = [
-      {
-        name: 'Dhruv Bhanushali',
-        role: 'Backend developer',
-        link: 'https://dhruvkb.github.io/'
-      },
-      {
-        name: 'Praduman Goyal',
-        role: 'Frontend developer',
-        link: 'https://pradumangoyal.github.io'
-      }
-    ]
+    const { appList } = this.props
     return (
-      <React.Fragment>
-        <div styleName='app'>
-          <AppHeader userDropdown />
-          {isMobile && <Sidebar />}
-          <AppMain>
-            <div styleName='main.app-main'>
-              {isBrowser && <Sidebar />}
-              <Scrollbars autoHide>
-                <Container>
-                  <CustomBreadcrumb list={[{ name: 'Apps' }]} />
-                  <Tiles
-                    tiles={
-                      appList.isLoaded
-                        ? appList.data.map(app => {
-                          return {
-                            name: app.nomenclature.verboseName,
-                            desc: <span>{app.description}</span>,
-                            link: app.baseUrl,
-                            iconName: 'cube',
-                            imageUrl:
-                                app.assets &&
-                                `/static/${app.baseUrls.static}${app.assets &&
-                                  app.assets.logo}`
-                          }
-                        })
-                        : []
-                    }
-                  />
-                </Container>
-              </Scrollbars>
-            </div>
-          </AppMain>
-          <AppFooter creators={creators} />
-        </div>
-      </React.Fragment>
+      <Scrollbars autoHide>
+        <Container>
+          <CustomBreadcrumb list={[{ name: 'Apps' }]} />
+
+          {appList.isLoaded ? (
+            <Tiles
+              tiles={appList.data.map(app => {
+                return {
+                  name: app.nomenclature.verboseName,
+                  desc: <span>{app.description}</span>,
+                  link: app.baseUrl,
+                  iconName: 'cube',
+                  imageUrl:
+                    app.assets &&
+                    `/static/${app.baseUrls.static}${app.assets &&
+                      app.assets.logo}`
+                }
+              })}
+            />
+          ) : (
+            <Grid columns={3} stackable doubling>
+              {[...Array(6)].map((item, index) => {
+                return (
+                  <Grid.Column key={index}>
+                    <Segment>
+                      <Placeholder>
+                        <Placeholder.Header image>
+                          <Placeholder.Line />
+                          <Placeholder.Line />
+                        </Placeholder.Header>
+                      </Placeholder>
+                    </Segment>
+                  </Grid.Column>
+                )
+              })}
+            </Grid>
+          )}
+        </Container>
+      </Scrollbars>
     )
   }
 }
